@@ -867,16 +867,16 @@ public abstract class EthereumNetworkBase implements EthereumNetworkRepositoryTy
 
         if (selectedIds.size() == 0)
         {
-            selectedIds.add(getDefaultNetwork());
+            selectedIds.addAll(Arrays.asList(getDefaultNetworks()));
         }
 
         return selectedIds;
     }
 
     @Override
-    public Long getDefaultNetwork()
+    public Long[] getDefaultNetworks()
     {
-        return CustomViewSettings.primaryChain;
+        return new Long[]{GNOSIS_ID, POLYGON_ID, FANTOM_ID};
     }
 
     @Override

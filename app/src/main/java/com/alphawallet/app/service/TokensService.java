@@ -41,6 +41,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
@@ -970,7 +971,10 @@ public class TokensService
             if (!networkFilter.contains(lockedChain)) networkFilter.add(lockedChain);
         }
 
-        if (networkFilter.size() == 0) networkFilter.add(ethereumNetworkRepository.getDefaultNetwork());
+        if (networkFilter.size() == 0){
+            Long[] defaultNetworks = ethereumNetworkRepository.getDefaultNetworks();
+            networkFilter.addAll(Arrays.asList(defaultNetworks));
+        }
 
         //set network filter prefs
         ethereumNetworkRepository.setFilterNetworkList(networkFilter.toArray(new Long[0]));
