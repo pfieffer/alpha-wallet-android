@@ -297,6 +297,7 @@ public abstract class C {
     public static final String ALPHAWALLET_WEBSITE = "https://alphawallet.com";
     public static final String WALLET_CONNECT_REACT_APP_RELAY_URL = "wss://relay.walletconnect.com";
     public static final String ALPHA_WALLET_LOGO_URL = "https://user-images.githubusercontent.com/51817359/158344418-c0f2bd19-38bb-4e64-a1d5-25ceb099688a.png";
+    public static final  String FANTOM_SVG_ICON_URL = "https://assets.lif3.com/wallet/tokens/FTM/0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83.svg";
 
     // Theme/Dark Mode
     public static final int THEME_LIGHT = 0;
