@@ -32,7 +32,8 @@ public interface EthereumNetworkRepositoryType {
 
     List<Long> getFilterNetworkList();
     List<Long> getSelectedFilters();
-    Long getDefaultNetwork();
+
+    Long[] getDefaultNetworks();
 
     void setFilterNetworkList(Long[] networkList);
 
