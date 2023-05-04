@@ -1,6 +1,7 @@
 package com.alphawallet.app.widget;
 
 import static androidx.core.content.ContextCompat.getColorStateList;
+import static com.alphawallet.ethereum.EthereumNetworkBase.FANTOM_ID;
 import static com.alphawallet.ethereum.EthereumNetworkBase.MAINNET_ID;
 
 import android.content.Context;
@@ -8,6 +9,7 @@ import android.content.res.TypedArray;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.TextUtils;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.alphawallet.app.C;
 import com.alphawallet.app.R;
 import com.alphawallet.app.entity.tokendata.TokenGroup;
 import com.alphawallet.app.entity.tokens.Token;
@@ -33,18 +36,16 @@ import com.alphawallet.app.service.TokensService;
 import com.alphawallet.app.ui.widget.TokensAdapterCallback;
 import com.alphawallet.app.ui.widget.entity.IconItem;
 import com.alphawallet.app.ui.widget.entity.StatusType;
-import com.alphawallet.app.util.RoundedTopCorners;
 import com.alphawallet.app.util.Utils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.load.resource.bitmap.CenterCrop;
-import com.bumptech.glide.load.resource.bitmap.FitCenter;
 import com.bumptech.glide.request.Request;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.DrawableImageViewTarget;
 import com.bumptech.glide.request.target.Target;
+import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou;
 
 import org.jetbrains.annotations.NotNull;
 import org.web3j.crypto.Keys;
@@ -231,7 +232,11 @@ public class TokenIcon extends ConstraintLayout
 
     public void bindData(long chainId)
     {
-        loadImageFromResource(EthereumNetworkRepository.getChainLogo(chainId));
+        if (chainId == FANTOM_ID){
+            loadImageFromSvgUrl(C.FANTOM_SVG_ICON_URL);
+        } else {
+            loadImageFromResource(EthereumNetworkRepository.getChainLogo(chainId));
+        }
     }
 
     public void bindData(Token token, @NotNull TokensService svs)
@@ -447,6 +452,17 @@ public class TokenIcon extends ConstraintLayout
         chainIcon.setVisibility(View.GONE);
         textIcon.setVisibility(View.GONE);
         icon.setImageResource(resourceId);
+        icon.setVisibility(View.VISIBLE);
+        circle.setVisibility(View.VISIBLE);
+    }
+
+    private void loadImageFromSvgUrl(String url){
+        handler.removeCallbacks(null);
+        statusBackground.setVisibility(View.GONE);
+        chainIconBackground.setVisibility(View.GONE);
+        chainIcon.setVisibility(View.GONE);
+        textIcon.setVisibility(View.GONE);
+        GlideToVectorYou.init().with(getContext()).load(Uri.parse(url),icon);
         icon.setVisibility(View.VISIBLE);
         circle.setVisibility(View.VISIBLE);
     }
