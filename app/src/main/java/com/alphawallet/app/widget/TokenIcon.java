@@ -252,7 +252,11 @@ public class TokenIcon extends ConstraintLayout
         }
         else
         {
-            bind(token, getIconUrl(token));
+            if (token.tokenInfo.chainId == FANTOM_ID){
+                loadImageFromSvgUrl(C.FANTOM_SVG_ICON_URL);
+            } else {
+                bind(token, getIconUrl(token));
+            }
         }
     }
 
